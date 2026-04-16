@@ -1,2 +1,1 @@
-# 2026_GameEngineIntro-game
-목요일 수업
+# 1B_2026GameEngineAssignment
