@@ -17,10 +17,13 @@ public class PlayerController : MonoBehaviour
 
     private bool isGiant = false;
 
+    float score;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         pAni = GetComponent<Animator>();
+        score = 0f;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -85,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Finish"))
         {
+            HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
+
             collision.GetComponent<LevelObject>().MoveToNextLevel();
         }
 
@@ -100,8 +105,10 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Item"))
         {
             isGiant = true;
-            Invoke(nameof(ResetGiant), 3f); // 3초 뒤에 isGiant를 없애겠다
+            Invoke(nameof(ResetGiant), 2f); // 3초 뒤에 isGiant를 없애겠다
             Destroy(collision.gameObject);
+
+            score += 10f;
 
             /*isGiant = true;
             Destroy(collision.gameObject);*/
