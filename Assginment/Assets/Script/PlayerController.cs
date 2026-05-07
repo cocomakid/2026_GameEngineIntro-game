@@ -88,7 +88,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Finish"))
         {
-            HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
+            //HighScore.TrySet(SceneManager.GetActiveScene().buildIndex, (int)score);
+            StageResultSaver.SaveStage(SceneManager.GetActiveScene().buildIndex, (int)score);
 
             collision.GetComponent<LevelObject>().MoveToNextLevel();
         }
@@ -108,7 +109,8 @@ public class PlayerController : MonoBehaviour
             Invoke(nameof(ResetGiant), 2f); // 3초 뒤에 isGiant를 없애겠다
             Destroy(collision.gameObject);
 
-            score += 10f;
+            score += collision.GetComponent<ItemObject>().GetPoint();
+            //score += 10f;
 
             /*isGiant = true;
             Destroy(collision.gameObject);*/
